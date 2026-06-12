@@ -1,0 +1,28 @@
+{% extends 'portfolio/base.html' %}
+{% block title %}Projects - Portfolio{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="section-title text-center">My Projects</h2>
+  <p class="section-subtitle text-center">Things I've built</p>
+  <div class="row g-4">
+    {% for project in projects %}
+    <div class="col-md-4">
+      <div class="card h-100">
+        {% if project.image %}<img src="{{ project.image.url }}" class="card-img-top" style="height:180px;object-fit:cover" alt="{{ project.title }}">{% endif %}
+        <div class="card-body">
+          <h5 class="fw-bold">{{ project.title }}</h5>
+          <p class="text-muted small">{{ project.description }}</p>
+          {% if project.technologies %}<p class="small"><i class="fas fa-code me-1 text-primary"></i>{{ project.technologies }}</p>{% endif %}
+        </div>
+        <div class="card-footer bg-transparent border-0 d-flex gap-2">
+          {% if project.github_url %}<a href="{{ project.github_url }}" class="btn btn-sm btn-dark" target="_blank"><i class="fab fa-github me-1"></i>Code</a>{% endif %}
+          {% if project.project_url %}<a href="{{ project.project_url }}" class="btn btn-sm btn-primary" target="_blank"><i class="fas fa-external-link-alt me-1"></i>Live</a>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col text-center text-muted py-5"><i class="fas fa-folder-open fa-3x mb-3"></i><p>No projects yet.</p></div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

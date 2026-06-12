@@ -1,0 +1,31 @@
+{% extends 'portfolio/base.html' %}
+{% block title %}Contact - Portfolio{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="section-title text-center">Contact Me</h2>
+  <p class="section-subtitle text-center">Let's work together</p>
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card p-4">
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="mb-3">{{ field.label_tag }}{{ field }}{% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}</div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary w-100"><i class="fas fa-paper-plane me-2"></i>Send Message</button>
+        </form>
+      </div>
+    </div>
+    {% if profile %}
+    <div class="col-md-4">
+      <div class="card p-4">
+        <h5 class="fw-bold mb-3">Contact Info</h5>
+        {% if profile.email %}<p><i class="fas fa-envelope text-primary me-2"></i>{{ profile.email }}</p>{% endif %}
+        {% if profile.phone %}<p><i class="fas fa-phone text-primary me-2"></i>{{ profile.phone }}</p>{% endif %}
+        {% if profile.address %}<p><i class="fas fa-map-marker-alt text-primary me-2"></i>{{ profile.address }}</p>{% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
